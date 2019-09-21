@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from babycam.views import cam_view
+
 urlpatterns = [
+    path('', cam_view, name='cam'),
+    path('home/', cam_view, name='home'),
     path('admin/', admin.site.urls),
 ]
