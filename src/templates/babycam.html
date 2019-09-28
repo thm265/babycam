@@ -1,88 +1,137 @@
-<!DOCTYPE html>
-<html lang='en'>
-    <head>
-        <meta charset='utf-8' />
-        <title>OpenCV DEMO</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-            body {
-                margin-top:2%;
-                text-align:center;
-                color:#fff;
-                background-color:#122836;
-            }
-            #server {
-                display:block;
-                margin:0% auto 2%;
-            }
-            #start {
-                display:inline-block;
-                margin:0% auto 2%;
-            }
-            #stop {
-                display:inline-block;
-                margin:0% auto 2%;
-            }
-            video {
-                position:absolute;
-                visibility:hidden;
-            }
-            canvas { border:8px solid #fff;}
-            button {
-                border:none;
-                display:block;
-                padding:0.5em 1em;
-                margin:1% auto 0;
-                cursor:pointer;
-                color:#fff;
-                background-color:#9f361b;
-            }
-            button:active { background-color:#e44d26; }
-        </style>
-        <script async src="cv.js"></script>
-        <script src='face-detection.js'></script>
-        <script src='signalling.js'></script>
-        <script src='main.js'></script>
-        <script  type='text/javascript'>
-            var Module = {
-                preRun: [],
-                postRun: [],
-                print: (function () {
-                    return function (text) {
-                        text = Array.prototype.slice.call(arguments).join(' ');
-                        console.log(text);
-                    };
-                })(),
-                printErr: function (text) {
-                    text = Array.prototype.slice.call(arguments).join(' ');
-                    console.error(text);
-                }
-            };
-        </script>
+{% load static %}
 
-    </head>
-    <body>
-        <h1>Face Detection DEMO with OpenCV & WebRTC!</h1>
-        <label id='server'>Web Service URL <input required type="text" id="address" value="" title="hostname (or IP address) and port of the UV4L WebRTC Web Service"/></label>
-        <div>
-            <button id='start' title="If you do not see any video stream, make sure your browser supports the codec used within this demo (see the source code for details, or try Firefox or Chrome)">Start Streaming</button>
-            <button id='stop'>Stop Streaming</button>
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Site made with Mobirise Website Builder v4.10.10, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.10.10, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="{% static "assets/images/mobile-logo-white.svg" %}" type="image/x-icon">
+  <meta name="description" content="">
+  
+  <title>Mobile</title>
+  <link rel="preload" as="style" href="{% static "assets/web/assets/mobirise-icons/mobirise-icons.css" %}">
+  <link rel="stylesheet" href="{% static "assets/web/assets/mobirise-icons/mobirise-icons.css" %}">
+  <link rel="preload" as="style" href="{% static "assets/bootstrap/css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/bootstrap/css/bootstrap.min.css" %}">
+  <link rel="preload" as="style" href="{% static "assets/bootstrap/css/bootstrap-grid.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/bootstrap/css/bootstrap-grid.min.css" %}">
+  <link rel="preload" as="style" href="{% static "assets/bootstrap/css/bootstrap-reboot.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/bootstrap/css/bootstrap-reboot.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/tether/tether.min.css" %}">
+  <link rel="stylesheet" href="{% static "assets/dropdown/css/style.css" %}">
+  <link rel="stylesheet" href="{% static "assets/theme/css/style.css" %}">
+  <link rel="preload" as="style" href="{% static "assets/mobirise/css/mbr-additional.css" %}">
+  <link rel="stylesheet" href="{% static "assets/mobirise/css/mbr-additional.css" %}" type="text/css">
+</head>
+
+<body>
+  <script src="{% static "assets/web/assets/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "assets/popper/popper.min.js" %}"></script>
+  <script src="{% static "assets/bootstrap/js/bootstrap.min.js" %}"></script>
+  <script async src="{% static "assets/tether/tether.min.js" %}"></script>
+  <script async src="{% static "assets/smoothscroll/smooth-scroll.js" %}"></script>
+  <script async src="{% static "assets/dropdown/js/nav-dropdown.js" %}"></script>
+  <script async src="{% static "assets/dropdown/js/navbar-dropdown.js" %}"></script>
+  <script async src="{% static "assets/touchswipe/jquery.touch-swipe.min.js" %}"></script>
+  <script async src="{% static "assets/parallax/jarallax.min.js" %}"></script>
+  <script async src="{% static "assets/theme/js/script.js" %}"></script>
+  <script src="{% static "webrtc/signalling.js" %}"></script>
+  <script src="{% static "webrtc/main.js" %}"></script>
+  <section class="menu cid-rCNKAldw5C" once="menu" id="menu1-5">
+  <script>
+      // Let's get a default address for the signalling server
+      var address = document.getElementById('address').value;
+      if (!address || address === '') {
+          var hostname = location.hostname;
+          if (hostname) {
+              address = hostname + ':' + (location.port || (location.protocol === 'https:' ? 443 : 80)) + '/webrtc';
+              document.getElementById('address').value = address;
+          } else {
+              document.getElementById('address').value = "<host>:<port>/webrtc";
+          }
+      }
+  </script>
+
+  <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top collapsed bg-color transparent">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-        <video id='v'></video>
-        <canvas id='c'></canvas>
-        <button id='effect'>Toggle Face Detection</button>
-        <script>
-            // Let's get a default address for the signalling server
-            var address = document.getElementById('address').value;
-            if (!address || address === '') {
-                var hostname = location.hostname;
-                if (hostname) {
-                    address = hostname + ':' + (location.port || (location.protocol === 'https:' ? 443 : 80)) + '/webrtc';
-                    document.getElementById('address').value = address;
-                } else {
-                    document.getElementById('address').value = "<host>:<port>/webrtc";
-                }
-            }
-        </script>
-    </body>
+    </button>
+    <div class="menu-logo">
+        <div class="navbar-brand">
+            <span class="navbar-logo">
+                <a href="babycam/" target="_blank">
+                      <img src="{% static "assets/images/mobile-logo-white.svg" %}" title="" style="height: 3.8rem;">
+                </a>
+            </span>
+            <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-4" href="babycam/" target="_blank">
+                    MOBILE</a></span>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item">
+                <a class="nav-link link text-white display-4" href="babycam/">
+                    <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>Babycam</a>
+            </li></ul>
+        
+    </div>
+  </nav>
+</section>
+
+<section class="cid-rCNSB6tGua mbr-fullscreen mbr-parallax-background" id="header2-b">
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+    </div>
+<label id='server'>Web Service URL <input required type="text" id="address" value="" title="hostname (or IP address) and port of the UV4L WebRTC Web Service"/></label>
+<div>
+    <button id='start' title="If you do not see any video stream, make sure your browser supports the codec used within this demo (see the source code for details, or try Firefox or Chrome)">Start Streaming</button>
+    <button id='stop'>Stop Streaming</button>
+</div>
+<video id='v'></video>
+<canvas id='c'></canvas>
+<button id='effect'>Toggle Face Detection</button>
+
+</section>
+
+<section class="cid-rCNSB6tGua mbr-fullscreen mbr-parallax-background" id="header2-b">
+    <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+    </div>
+    <div class="container align-center">
+        <div class="row justify-content-md-center">
+          <div class="mbr-white col-md-10">
+            <div class="mbr-section-btn">
+              <a class="btn btn-md btn-secondary display-4" id='start'>Connect</a>
+              <a class="btn btn-md btn-primary display-4" id='stop'>Disconnect</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  <video id='v'></video>
+  <canvas id='c'></canvas>
+
+</section>
+
+<section class="cid-rCNSB6tGua mbr-fullscreen mbr-parallax-background" id="header2-b">
+  <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+  </div>
+
+  <div class="container align-center">
+    <div class="row justify-content-md-center">
+      <div class="mbr-white col-md-10">
+        <div class="mbr-section-btn">
+          <a class="btn btn-md btn-secondary display-4" href="babycam/">MOBILE OFF</a>
+          <a class="btn btn-md btn-primary display-4" href="babycam/">MOBILE ON</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
 </html>

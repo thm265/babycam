@@ -16,10 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from babycam.views import cam_view
 
 urlpatterns = [
-    path('', cam_view, name='cam'),
+    path('', cam_view, name='babycam'),
     path('home/', cam_view, name='home'),
+    path('babycam/', cam_view, name='babycam'),
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
