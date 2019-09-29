@@ -20,12 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from babycam.views import cam_view
+from babycam.views import webrtc_view
 
 urlpatterns = [
     path('', cam_view, name='babycam'),
     path('home/', cam_view, name='home'),
     path('babycam/', cam_view, name='babycam'),
     path('admin/', admin.site.urls),
+    path('webrtc/', webrtc_view, name='webrtc'),
 ]
 
 if settings.DEBUG:

@@ -6,3 +6,7 @@ from django.http import HttpResponse
 def cam_view(request, *args, **kwargs):
     print(request.user)
     return render(request, "babycam.html",{})
+
+def webrtc_view(request, *args, **kwargs):
+    print(request.user)
+    return render(request, "webrtc_test.html",{})
