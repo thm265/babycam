@@ -9,4 +9,4 @@ def cam_view(request, *args, **kwargs):
 
 def webrtc_view(request, *args, **kwargs):
     print(request.user)
-    return render(request, "webrtc_test.html",{})
+    return render(request, "webrtc_view.html",{})

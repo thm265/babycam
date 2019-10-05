@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>UV4L WebRTC</title>
+        <!--script src="https://raw.githubusercontent.com/dorukeker/gyronorm.js/master/dist/gyronorm.complete.min.js" async></script-->
+        <!--script src="https://rawgit.com/dorukeker/gyronorm.js/master/dist/gyronorm.complete.min.js" async></script-->
+        <script src="{% static "webrtc/webrtc.js" %}"></script>
+        <style>
+            #container {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: flex-end;
+            }
+            video {
+                background: #eee none repeat scroll 0 0;
+                border: 1px solid #aaa;
+            }
+            .overlayWrapper {
+                position: relative;
+            }
+            .overlayWrapper .overlay {
+                position: absolute;
+                top: 0;
+                left: 5px;
+            }
+            p {
+                margin: 0.125em;
+            }
+            small {
+                font-size: smaller;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div class="overlayWrapper">
+                <video id="remote-video" autoplay="" width="640" height="480">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+        <div>
+            <span style="display:none">Remote Peer/Signalling Server Address:</span><input style="display:none" required type="text" id="signalling_server" value="192.168.178.101:8090" title="<host>:<port>, default address is autodetected"/><br>
+            <span style="display:none">Optional ICE Servers (STUN/TURN): </span><input style="display:none" type="text" id="ice_servers" value="" title="array of RTCIceServer objects as valid JSON string"/><br>
+            <span style="display:none">Trickle ICE: </span>
+            <select style="display:none" onclick="trickleice_selection();" id="trickleice" name="trickleice" title="enable trickle ice">
+                <option value="auto">auto</option>
+                <option value="true" selected="selected">true</option>
+                <option value="false">false</option>
+            </select>
+            <button id="start" style="background-color: green; color: white" onclick="start();">Call!</button>
+            <button disabled id="stop" style="background-color: red; color: white" onclick="stop();">Hang up</button>
+        </div>
+    </body>
+</html>
