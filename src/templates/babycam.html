@@ -113,17 +113,21 @@
 <section class="cid-rCNSB6tGua mbr-fullscreen mbr-parallax-background" id="header2-b">
   <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
   </div>
-
   <div class="container align-center">
     <div class="row justify-content-md-center">
       <div class="mbr-white col-md-10">
         <div class="mbr-section-btn">
-          <a class="btn btn-md btn-secondary display-4" href="">MOBILE OFF</a>
-          <a class="btn btn-md btn-primary display-4" href="">MOBILE ON</a>
+          <form action="/mobile_on/" method="POST">{% csrf_token %}
+              <button type="submit" value=true name="Btn_MobileOn" class="btn btn-md btn-secondary display-4">MOBILE ON</button>
+          </form>
+          <form action="/mobile_off/" method="POST">{% csrf_token %}
+              <button type="submit" value=true name="Btn_MobileOff" class="btn btn-md btn-primary display-4">MOBILE OFF</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
+
 </section>
 
 </body>
