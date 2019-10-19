@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="cid-rCNSB6tGua mbr-fullscreen mbr-parallax-background" id="header2-b">
+  <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+  </div>
+  <div class="container align-center">
+    <div class="row justify-content-md-center">
+      <div class="mbr-white col-md-10">
+        <div class="mbr-section-btn">
+          <form action="/rotation/on/" method="POST">{% csrf_token %}
+              <button type="submit" value=true name="mobile-on" class="btn btn-md btn-secondary display-4">MOBILE ON</button>
+          </form>
+          <form action="/rotation/off/" method="POST">{% csrf_token %}
+              <button type="submit" value=true name="mobile-off" class="btn btn-md btn-primary display-4">MOBILE OFF</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -208,7 +208,7 @@ function start() {
                 what: "call",
                 options: {
                     force_hw_vcodec: false,
-                    vformat: 20,
+                    vformat: 30,
                     trickle_ice: true
                 }
             };

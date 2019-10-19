@@ -5,9 +5,14 @@ from django.shortcuts import render
 # Create your views here.
 
 def cam_view(request, *args, **kwargs):
-    print(request.GET)
-    print(request.POST)
     return render(request, "babycam.html",{})
+
+def rotation_view(request, *args, **kwargs):
+    a = request.POST.get('mobile-on')
+    b = request.POST.get('mobile-off')
+    print(a)
+    print(b)
+    return render(request, "rotation.html",{})
 
 def webrtc_view(request, *args, **kwargs):
     print(request.user)

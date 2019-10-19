@@ -20,14 +20,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from babycam.views import cam_view
+from babycam.views import rotation_view
 from babycam.views import webrtc_view
 
 urlpatterns = [
     path('', cam_view, name='babycam'),
     path('home/', cam_view, name='babycam'),
     path('babycam/', cam_view, name='babycam'),
-    path('mobile_off/', cam_view, name='babycam'),
-    path('mobile_on/', cam_view, name='babycam'),
+    path('rotation/', rotation_view, name='rotation'),
+    path('rotation/off/', rotation_view, name='rotation'),
+    path('rotation/on/', rotation_view, name='rotation'),
     path('webrtc/', webrtc_view, name='webrtc'),
     path('admin/', admin.site.urls),
     
