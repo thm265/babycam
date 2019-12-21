@@ -27,9 +27,9 @@ urlpatterns = [
     path('', cam_view, name='babycam'),
     path('home/', cam_view, name='babycam'),
     path('babycam/', cam_view, name='babycam'),
-    path('rotation/', rotation_view, name='rotation'),
-    path('rotation/off/', rotation_view, name='rotation'),
-    path('rotation/on/', rotation_view, name='rotation'),
+    # path('rotation/', rotation_view, name='rotation'),
+    # path('rotation/off/', rotation_view, name='rotation'),
+    # path('rotation/on/', rotation_view, name='rotation'),
     path('webrtc/', webrtc_view, name='webrtc'),
     path('admin/', admin.site.urls),
     
