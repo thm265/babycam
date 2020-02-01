@@ -25,7 +25,7 @@ SECRET_KEY = '+bx3kbcnsx8x^p8r93h0159f(4y&(_5gt9^%00xwu_r%#bcp&p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.178.101', 'mobile', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.178.101', 'babycam', '127.0.0.1']
 
 
 # Application definition
