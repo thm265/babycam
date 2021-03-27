@@ -1,7 +1,7 @@
 # Babycam Repository
 This is a repository for a babycam using RaspberryPi and webcam with Python Django backend.
 
-## Installation: UV4L
+## Installation: UV4L Webcam Communication
 See https://www.linux-projects.org/uv4l/installation/
 and https://youtu.be/5QAHlZoPlgI
 
@@ -57,7 +57,7 @@ pcm.!default {
 }
 ```
 
-## Installation: Django
+## Installation: Raspberry Webserver
 See https://github.com/codingforentrepreneurs/Guides/blob/master/all/DjangoPiNetworkServerGuide.md
 
 ### Dependencies Installation for Development
@@ -69,7 +69,6 @@ Use *pip install -r requirements.txt* to install dependencies
 
 
 ### Get IP Address of the Pi
-
 1. Turn Raspberry Pi on and ensure microSD card is inserted that contians the Raspbian Jessie Linux Operating System (above setup).
 
 2. Connect USB Keyboard, USB Mouse, and Monitor (through HDMI)
@@ -133,11 +132,7 @@ Use *pip install -r requirements.txt* to install dependencies
     5. Default password is `raspberry`
     6. You're In!
 
-
-
 ### Apache2 + Django
-
-
 Update Software:
 
 ```
@@ -160,11 +155,9 @@ Install Pip & Django:
 ```
 sudo apt-get install python-setuptools python-dev build-essential
 
-sudo easy_install pip 
+(sudo easy_install pip) # if pip is not installed 
 
-sudo pip install django==X.Y.Z #where X.Y.Z is the version number
-
-sudo pip install django==1.10.3
+sudo pip install django
 
 sudo pip install virtualenv 
 
@@ -176,18 +169,18 @@ cd ~/
 
 mkdir Dev && cd Dev
 
-mkdir cfehome && cd cfehome
+git clone https://github.com/Helferlein21963/babycam.git
 
-virtualenv -p python3 .
+cd babycam/
+
+virtualenv . -p python3
 
 source bin/activate
 
-pip install django==1.10.3
+pip install -r requirements.txt
 
-django-admin.py startproject cfehome
-
-mv /home/pi/Dev/cfehome/cfehome /home/pi/Dev/cfehome/src
 ```
+If a environment error occure, check write permission. Try ```sudo chown -R <user> ~/Dev/babycam/```.
 
 Apache2 Settings:
 
@@ -209,20 +202,20 @@ sudo apt-get install apache2 -y # reinstalls it
 
     ServerAdmin webmaster@localhost
 
-    Alias /static /home/pi/Dev/cfehome/static
-        <Directory /home/pi/Dev/cfehome/static>
+    Alias /static /home/pi/Dev/babycam/static-root
+        <Directory /home/pi/Dev/babycam/static-root>
            Require all granted
          </Directory>
 
-    <Directory /home/pi/Dev/cfehome/src/cfehome>
+    <Directory /home/pi/Dev/babycam/src/smartmobile>
         <Files wsgi.py>
             Require all granted
         </Files>
     </Directory>
 
-    WSGIDaemonProcess cfehome python-path=/home/pi/Dev/cfehome/src:/home/pi/Dev/cfehome/lib/python2.7/site-packages
-    WSGIProcessGroup cfehome
-    WSGIScriptAlias / /home/pi/Dev/cfehome/src/cfehome/wsgi.py
+    WSGIDaemonProcess babycam python-path=/home/pi/Dev/babycam/src:/home/pi/Dev/babycam/lib/python3.7/site-packages
+    WSGIProcessGroup babycam
+    WSGIScriptAlias / /home/pi/Dev/babycam/src/smartmobile/wsgi.py
 
 
     ErrorLog ${APACHE_LOG_DIR}/error.log
