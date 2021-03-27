@@ -26,14 +26,14 @@ sudo apt-get install uv4l-demos
 sudo apt-get install uv4l-xmpp-bridge
 ```
 
-Go to config file
+For video configuration, go to config file
 ```
 sudo nano /etc/uv4l/uv4l-uvc.conf
 ```
 
-Change following lines (or uncomment)
+And change or uncomment following lines. To get [bus] and [address], use "lsusb" and find the webcam.
 ```
-device-path = <bus>:<address> # List all USB devices with lsusb
+device-path = [bus]:[address]
 
 server-option = --enable-webrtc=yes
 server-option = --enable-webrtc-datachannels=yes
@@ -41,6 +41,20 @@ server-option = --webrtc-datachannel-label=uv4l
 server-option = --webrtc-datachannel-socket=/tmp/uv4l.socket
 server-option = --enable-webrtc-video=yes
 server-option = --enable-webrtc-audio=yes
+```
+
+For audio configuration, create or change config file
+```
+sudo nano /etc/uv4l/uv4l-uvc.conf
+```
+
+And add/change following lines. To get [card number], use "arecord -l". 
+```
+pcm.!default {
+   type asym
+   playback.pcm "plug:hw:0"
+   capture.pcm "plug:dsnoop:[card number]"
+}
 ```
 
 ## Installation: Django
