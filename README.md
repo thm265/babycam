@@ -31,9 +31,9 @@ For video configuration, go to config file
 sudo nano /etc/uv4l/uv4l-uvc.conf
 ```
 
-And change or uncomment following lines. To get [bus] and [address], use ```lsusb``` and find the webcam.
+And change or uncomment following lines. To get <bus> and <address>, use ```lsusb``` and find the webcam.
 ```
-device-path = [bus]:[address]
+device-path = <bus>:<address>
 
 server-option = --enable-webrtc=yes
 server-option = --enable-webrtc-datachannels=yes
@@ -48,12 +48,12 @@ For audio configuration, create or change config file
 sudo nano /etc/asound.conf
 ```
 
-And add/change following lines. To get [card number], use ```arecord -l```. 
+And add/change following lines. To get <card number>, use ```arecord -l```. 
 ```
 pcm.!default {
    type asym
    playback.pcm "plug:hw:0"
-   capture.pcm "plug:dsnoop:[card number]"
+   capture.pcm "plug:dsnoop:<card number>"
 }
 ```
 
