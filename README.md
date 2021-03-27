@@ -180,7 +180,7 @@ source bin/activate
 pip install -r requirements.txt
 
 ```
-If a environment error occure, check write permission. Try ```sudo chown -R <user> ~/Dev/babycam/```.
+If a environment error occurs, check write permission. Try ```sudo chown -R <user> ~/Dev/babycam/```.
 
 Apache2 Settings:
 
