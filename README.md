@@ -1,15 +1,58 @@
 # Babycam Repository
 This is a repository for a babycam using RaspberryPi and webcam with Python Django backend.
 
-## Dependencies Installation for Development
+## Installation: UV4L
+See https://www.linux-projects.org/uv4l/installation/
+and https://youtu.be/5QAHlZoPlgI
+
+```
+curl https://www.linux-projects.org/listing/uv4l_repo/lpkey.asc | sudo apt-key add -
+
+sudo nano /etc/apt/sources.list
+```
+
+Add following line
+```
+deb https://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main
+```
+
+Update uv4l services
+```
+sudo apt-get update
+sudo apt-get install uv4l uv4l-raspicam
+sudo apt-get install uv4l-raspicam-extras uv4l-tc358743-extras uv4l-server uv4l-uvc uv4l-xscreen uv4l-mjpegstream uv4l-dummy uv4l-raspidisp
+sudo apt-get install uv4l-webrtc
+sudo apt-get install uv4l-demos
+sudo apt-get install uv4l-xmpp-bridge
+```
+
+Go to config file
+```
+sudo nano /etc/uv4l/uv4l-uvc.conf
+```
+
+Change following lines (or uncomment)
+```
+device-path = <bus>:<address> # List all USB devices with lsusb
+
+server-option = --enable-webrtc=yes
+server-option = --enable-webrtc-datachannels=yes
+server-option = --webrtc-datachannel-label=uv4l
+server-option = --webrtc-datachannel-socket=/tmp/uv4l.socket
+server-option = --enable-webrtc-video=yes
+server-option = --enable-webrtc-audio=yes
+```
+
+## Installation: Django
+See https://github.com/codingforentrepreneurs/Guides/blob/master/all/DjangoPiNetworkServerGuide.md
+
+### Dependencies Installation for Development
 Use *pip install -r requirements.txt* to install dependencies
 
-## Some Youtube Tutorials
+### Some Youtube Tutorials
 1. https://www.youtube.com/watch?v=NufWIkVQT44&list=WL&index=1
 2. https://www.youtube.com/watch?v=-oQvMHpKkms&t=2s
 
-## Installation process
-See https://github.com/codingforentrepreneurs/Guides/blob/master/all/DjangoPiNetworkServerGuide.md
 
 ### Get IP Address of the Pi
 
